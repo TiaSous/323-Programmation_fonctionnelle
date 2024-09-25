@@ -10,20 +10,10 @@ List<Player> players = new List<Player>()
 // Initialize search
 Player elder = Search(players);
 
-// search
-//foreach (Player p in players)
-//{
-//    if (p.Age > biggestAge) // memorize new elder
-//    {
-//        elder = p;
-//        biggestAge = p.Age; // for future loops
-//    }
-//}
 
 Console.WriteLine($"Le plus agé est {elder.Name} qui a {elder.Age} ans");
-
-Console.ReadKey();
-
+///////////////////////////////////////////////////////////version immutable/////////////////////////////////////////////////
+// va chercher le joueur le plus agées
 Player Search(List<Player> listOfPlayer)
 {
     List<Player> aggestPlayer = [listOfPlayer[0]];
@@ -37,7 +27,13 @@ Player Search(List<Player> listOfPlayer)
     }
     return aggestPlayer.First();
 }
+///////////////////////////////////////////////////////////version Linq/////////////////////////////////////////////////
+// va chercher le joueur le plus agées
+Player elder2 = players.Aggregate((current, next) => current.Age < next.Age ? next : current);
 
+Console.WriteLine($"Le plus agé est {elder2.Name} qui a {elder2.Age} ans");
+
+Console.ReadKey();
 public class Player
 {
     private readonly string _name;
