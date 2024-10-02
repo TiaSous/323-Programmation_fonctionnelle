@@ -26,9 +26,30 @@ void DrawBoard(bool[,] board)
     Console.WriteLine(" └────────┘");
 }
 
-// TODO Put silk on 30 more squares
+bool[,] AddSilk(bool[,] board)
+{
+    Random random = new Random();
+    int x;
+    int y;
+    int counter = 2;
+    while (counter < 28) 
+    {
+        x = random.Next(0, 8);
+        y = random.Next(0, 8);
+        if (!board[x, y]) 
+        {
+            board[x, y] = true;
+            counter++;
+        }
+    }
+    return board;
+    
+}
 
+// TODO Put silk on 30 more squares
+silkyWay = AddSilk(silkyWay);
 DrawBoard(silkyWay);
+
 
 // TODO Create a data structure that allow us to remember which square has already been tested
 
