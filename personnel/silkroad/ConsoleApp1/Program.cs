@@ -52,9 +52,11 @@ DrawBoard(silkyWay);
 
 
 // TODO Create a data structure that allow us to remember which square has already been tested
-
+bool[,] caseTest = new bool[8, 8] ;
+caseTest[0, 0] = true;
 // TODO Create a data structure that allow us to remember the successful steps
-
+bool[,] exitPath = new bool[8, 8];
+exitPath[7, 7] = true;
 // TODO Write the recursive function
 // Recursive function that tells if we can reach H8 from the given position
 // The algorithm is in fact simple to spell out (even in french ;)):
@@ -65,6 +67,30 @@ DrawBoard(silkyWay);
 //              ou
 //
 //          2. Je peux sortir depuis une des cases où je peux aller (et où je ne suis pas encore allé)
+
+bool Algoritm(int x, int y)
+{
+    if (x == 7 &&  y == 7) return true;
+    if (x < 0 || y < 0 || x > 7|| y > 7 || !silkyWay[x, y] || (caseTest[x,y] && (y != 0 || x != 0))) return false;
+    caseTest[x, y] = true;
+    if (Algoritm(x + 1, y) || Algoritm(x - 1, y) || Algoritm(x, y + 1) || Algoritm(x, y - 1) ||
+        Algoritm(x + 1, y + 1) || Algoritm(x - 1, y - 1) || Algoritm(x - 1, y + 1) || Algoritm(x + 1, y - 1))
+    {
+        exitPath[x, y] = true;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    
+}
+
+if(Algoritm(0, 0))
+{
+    Console.SetCursorPosition(0, 15);
+    DrawBoard(exitPath);
+}
 
 // TODO Call the function and show the results
 
